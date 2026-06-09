@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REDRABBIT | security lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c10;
+            color: #00ff9d;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cursor::after {
+            content: "█";
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            color: #4a4e5c;
+            margin-bottom: 2rem;
+            border-left: 3px solid #00ff9d;
+            padding-left: 1rem;
+        }
+
+        .section {
+            margin: 2.5rem 0;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #00ff9d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .project-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            padding: 1.2rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: #00ff9d;
+            background: rgba(0, 255, 157, 0.08);
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: #8a8e9c;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-tech {
+            font-size: 0.7rem;
+            color: #00ff9d;
+            text-transform: uppercase;
+        }
+
+        a {
+            color: #00ff9d;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 255, 157, 0.2);
+            text-align: center;
+            color: #4a4e5c;
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            REDRABBIT
+            <span class="cursor"></span>
+        </h1>
+        <div class="tagline">
+            // security research · network analysis · low‑level exploits
+        </div>
+
+        <div class="section">
+            <div class="section-title">📡 active projects</div>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-title">
+                        <a href="https://github.com/dubkow14-cell/port_scanner">port_scanner</a>
+                    </div>
+                    <div class="project-desc">
+                        High‑performance TCP port scanner with service detection and multithreading.
+                    </div>
+                    <div class="project-tech">Python · sockets · threading</div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">
+                        <a href="https://github.com/dubkow14-cell/hash-cracker">hash_cracker</a>
+                    </div>
+                    <div class="project-desc">
+                        Dictionary attack on password hashes. Auto-detection of MD5/SHA1/SHA256/SHA512.
+                    </div>
+                    <div class="project-tech">Python · hashlib · multithreading</div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">
+                        <a href="https://github.com/dubkow14-cell/web-scanner">web_scanner</a>
+                    </div>
+                    <div class="project-desc">
+                        Hidden directory brute-forcer for web application reconnaissance.
+                    </div>
+                    <div class="project-tech">Python · requests · threading</div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">
+                        <a href="https://github.com/dubkow14-cell/url-scanner">url_scanner</a>
+                    </div>
+                    <div class="project-desc">
+                        Phishing link detector with HTTPS validation and suspicious pattern matching.
+                    </div>
+                    <div class="project-tech">Python · security headers · threat intel</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">⚙️ toolbox</div>
+            <div>
+                <span class="badge">Python</span>
+                <span class="badge">Linux (WSL)</span>
+                <span class="badge">Git</span>
+                <span class="badge">Wireshark</span>
+                <span class="badge">TCP/IP</span>
+                <span class="badge">HTTP</span>
+                <span class="badge">Crypto</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎯 next targets</div>
+            <div class="project-desc">
+                • Low‑level binary exploitation (C / assembly)<br>
+                • Linux kernel security research<br>
+                • Custom fuzzing framework
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="https://github.com/dubkow14-cell">github</a> &nbsp;|&nbsp;
+            <a href="mailto:dubkow14@gmail.com">email</a>
+        </div>
+    </div>
+</body>
+</html>
