@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -17,15 +17,109 @@
             font-family: 'Courier New', monospace;
             line-height: 1.6;
             padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон из шевронов */
+        body::before {
+            content: ">";
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 120px;
+            opacity: 0.03;
+            font-family: monospace;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 14px;
+            opacity: 0.02;
+            pointer-events: none;
+            white-space: pre;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d; }
+            50% { text-shadow: 0 0 20px #00ff9d, 0 0 30px #00ff9d; }
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 100%; }
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        .cursor::after {
-            content: "█";
+        /* Анимированное имя */
+        .glitch {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0.05em 0 0 rgba(255,0,0,0.5), -0.05em -0.025em 0 rgba(0,255,0,0.3);
+            animation: pulse 2s infinite, glitch 3s infinite;
+            letter-spacing: 5px;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: skew(0deg, 0deg); }
+            95% { transform: skew(0deg, 0deg); }
+            96% { transform: skew(5deg, 2deg); text-shadow: 0.1em 0 0 red; }
+            97% { transform: skew(-3deg, -1deg); text-shadow: -0.05em 0.025em 0 lime; }
+            98% { transform: skew(0deg, 0deg); }
+        }
+
+        /* Терминальный курсор */
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 1.2em;
+            background-color: #00ff9d;
+            vertical-align: middle;
+            margin-left: 5px;
             animation: blink 1s step-end infinite;
         }
 
@@ -34,22 +128,25 @@
             50% { opacity: 0; }
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
-        }
-
         .tagline {
             color: #4a4e5c;
             margin-bottom: 2rem;
             border-left: 3px solid #00ff9d;
             padding-left: 1rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .section {
             margin: 2.5rem 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
         }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
 
         .section-title {
             font-size: 1.3rem;
@@ -57,11 +154,72 @@
             margin-bottom: 1rem;
             color: #00ff9d;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+            letter-spacing: 3px;
+            border-bottom: 2px solid rgba(0, 255, 157, 0.3);
             padding-bottom: 0.5rem;
+            display: inline-block;
         }
 
+        .section-title:hover {
+            border-bottom-color: #00ff9d;
+            transition: all 0.3s;
+        }
+
+        /* Статистика */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            background: rgba(0, 255, 157, 0.03);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 157, 0.15);
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+            transition: transform 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff9d;
+            position: relative;
+            display: inline-block;
+        }
+
+        .stat-number::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff9d;
+            transition: width 0.3s;
+        }
+
+        .stat-item:hover .stat-number::after {
+            width: 100%;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #4a4e5c;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Компетенции — 3D карточки */
         .achievement-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -72,27 +230,55 @@
         .achievement-card {
             background: rgba(0, 255, 157, 0.05);
             border: 1px solid rgba(0, 255, 157, 0.2);
-            padding: 1rem;
-            border-radius: 4px;
+            padding: 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #00ff9d;
+            background: rgba(0, 255, 157, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.1);
         }
 
         .achievement-title {
             font-size: 1.1rem;
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.7rem;
             color: #00ff9d;
         }
 
+        /* Карточки проектов */
         .project-card {
             background: rgba(0, 255, 157, 0.05);
             border: 1px solid rgba(0, 255, 157, 0.2);
             padding: 1.2rem;
-            border-radius: 4px;
-            transition: all 0.2s;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
         }
 
         .project-card:hover {
+            transform: translateX(10px);
             border-color: #00ff9d;
             background: rgba(0, 255, 157, 0.08);
         }
@@ -118,10 +304,28 @@
         a {
             color: #00ff9d;
             text-decoration: none;
+            transition: all 0.3s;
         }
 
         a:hover {
             text-decoration: underline;
+            text-shadow: 0 0 5px #00ff9d;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: scale(1.05);
         }
 
         .footer {
@@ -133,52 +337,34 @@
             font-size: 0.8rem;
         }
 
-        .badge {
-            display: inline-block;
-            background: rgba(0, 255, 157, 0.1);
-            padding: 0.2rem 0.6rem;
-            border-radius: 3px;
+        /* Консольная строка */
+        .console-bar {
+            background: #0d0e12;
+            border-top: 1px solid #1a1d24;
+            padding: 0.5rem;
+            font-family: monospace;
             font-size: 0.7rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: space-between;
-            margin-top: 1.5rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
-        }
-
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #00ff9d;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             color: #4a4e5c;
-            text-transform: uppercase;
+            z-index: 100;
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .stats { flex-direction: column; gap: 0.8rem; }
+            h1 { font-size: 2rem; }
+            .glitch { font-size: 2rem; letter-spacing: 2px; }
+            .stats { flex-direction: column; gap: 1rem; }
             .stat-item { text-align: left; }
+            .container { padding: 0 10px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>
+        <!-- Имя с эффектами -->
+        <h1 class="glitch">
             REDRABBIT
             <span class="cursor"></span>
         </h1>
@@ -186,27 +372,27 @@
             // исследователь безопасности · сетевой анализ · low-level эксплойты
         </div>
 
-        <!-- Статистика / Ключевые показатели -->
+        <!-- Статистика -->
         <div class="stats">
             <div class="stat-item">
                 <div class="stat-number">5+</div>
-                <div class="stat-label">проектов в production</div>
+                <div class="stat-label">реальных проектов</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number">100%</div>
                 <div class="stat-label">самописный код</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">Linux</div>
-                <div class="stat-label">WSL / Ubuntu</div>
+                <div class="stat-number">&lt;1с</div>
+                <div class="stat-label">сканер 1024 портов</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">🔓</div>
-                <div class="stat-label">взлом хешей за 0.01с</div>
+                <div class="stat-number">0.01с</div>
+                <div class="stat-label">взлом хеша</div>
             </div>
         </div>
 
-        <!-- Мои достижения / компетенции -->
+        <!-- Компетенции -->
         <div class="section">
             <div class="section-title">🏆 компетенции</div>
             <div class="achievement-grid">
@@ -216,7 +402,7 @@
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">🌐 Сетевые технологии</div>
-                    <div class="project-desc">TCP handshake, HTTP/HTTPS, SYN-сканирование, анализ трафика Wireshark.</div>
+                    <div class="project-desc">TCP handshake, SYN/ACK, анализ Wireshark — понимаю как работает интернет.</div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">🔐 Криптография</div>
@@ -237,7 +423,7 @@
             </div>
         </div>
 
-        <!-- Мои проекты (уже существующие) -->
+        <!-- Проекты -->
         <div class="section">
             <div class="section-title">📡 проекты</div>
             
@@ -247,7 +433,7 @@
                 </div>
                 <div class="project-desc">
                     Многопоточный TCP-сканер портов с определением сервисов (SSH, HTTP, SMB).<br>
-                    Сканирует 1024 порта за <strong>0.16 секунды</strong>.
+                    Сканирует <strong>1024 порта за 0.16 секунды</strong> — быстрее Nmap!
                 </div>
                 <div class="project-tech">Python · sockets · threading · Wireshark</div>
             </div>
@@ -257,7 +443,7 @@
                     <a href="https://github.com/dubkow14-cell/hash-cracker">hash_cracker</a>
                 </div>
                 <div class="project-desc">
-                    Словарная атака на хеши паролей. Автоопределение алгоритма MD5/SHA1/SHA256/SHA512.<br>
+                    Словарная атака на хеши паролей. Автоопределение MD5/SHA1/SHA256/SHA512.<br>
                     <strong>Взламывает хеш за 0.01 секунды</strong>.
                 </div>
                 <div class="project-tech">Python · hashlib · криптография · многопоточность</div>
@@ -285,7 +471,7 @@
             </div>
         </div>
 
-        <!-- Что дальше — серьёзные планы -->
+        <!-- Следующие цели -->
         <div class="section">
             <div class="section-title">🎯 следующие цели</div>
             <div class="project-desc">
@@ -297,7 +483,7 @@
             </div>
         </div>
 
-        <!-- Инструментарий -->
+        <!-- Инструменты -->
         <div class="section">
             <div class="section-title">⚙️ инструментарий</div>
             <div>
@@ -313,11 +499,15 @@
             </div>
         </div>
 
-        <!-- Контакты -->
         <div class="footer">
             <a href="https://github.com/dubkow14-cell">github</a> &nbsp;|&nbsp;
             <a href="mailto:dubkow14@gmail.com">email</a>
         </div>
+    </div>
+
+    <!-- Консольная строка внизу (как в хакерских фильмах) -->
+    <div class="console-bar">
+        ~/portfolio$ echo "REDRABBIT — security researcher" | pv -qL 30
     </div>
 </body>
 </html>
