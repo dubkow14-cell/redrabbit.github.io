@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REDRABBIT | security lab</title>
+    <title>REDRABBIT | лаборатория безопасности</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -58,11 +58,29 @@
             color: #00ff9d;
             text-transform: uppercase;
             letter-spacing: 2px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+            padding-bottom: 0.5rem;
         }
 
-        .project-grid {
+        .achievement-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .achievement-card {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .achievement-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #00ff9d;
         }
 
         .project-card {
@@ -71,6 +89,7 @@
             padding: 1.2rem;
             border-radius: 4px;
             transition: all 0.2s;
+            margin-bottom: 1rem;
         }
 
         .project-card:hover {
@@ -123,6 +142,38 @@
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
         }
+
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff9d;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #4a4e5c;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .stats { flex-direction: column; gap: 0.8rem; }
+            .stat-item { text-align: left; }
+        }
     </style>
 </head>
 <body>
@@ -132,76 +183,137 @@
             <span class="cursor"></span>
         </h1>
         <div class="tagline">
-            // security research · network analysis · low‑level exploits
+            // исследователь безопасности · сетевой анализ · low-level эксплойты
         </div>
 
+        <!-- Статистика / Ключевые показатели -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">5+</div>
+                <div class="stat-label">проектов в production</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">самописный код</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Linux</div>
+                <div class="stat-label">WSL / Ubuntu</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">🔓</div>
+                <div class="stat-label">взлом хешей за 0.01с</div>
+            </div>
+        </div>
+
+        <!-- Мои достижения / компетенции -->
         <div class="section">
-            <div class="section-title">📡 active projects</div>
-            <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-title">
-                        <a href="https://github.com/dubkow14-cell/port_scanner">port_scanner</a>
-                    </div>
-                    <div class="project-desc">
-                        High‑performance TCP port scanner with service detection and multithreading.
-                    </div>
-                    <div class="project-tech">Python · sockets · threading</div>
+            <div class="section-title">🏆 компетенции</div>
+            <div class="achievement-grid">
+                <div class="achievement-card">
+                    <div class="achievement-title">🐍 Python-разработка</div>
+                    <div class="project-desc">Сокеты, threading, hashlib, requests — всё с нуля без копипасты.</div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-title">
-                        <a href="https://github.com/dubkow14-cell/hash-cracker">hash_cracker</a>
-                    </div>
-                    <div class="project-desc">
-                        Dictionary attack on password hashes. Auto-detection of MD5/SHA1/SHA256/SHA512.
-                    </div>
-                    <div class="project-tech">Python · hashlib · multithreading</div>
+                <div class="achievement-card">
+                    <div class="achievement-title">🌐 Сетевые технологии</div>
+                    <div class="project-desc">TCP handshake, HTTP/HTTPS, SYN-сканирование, анализ трафика Wireshark.</div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-title">
-                        <a href="https://github.com/dubkow14-cell/web-scanner">web_scanner</a>
-                    </div>
-                    <div class="project-desc">
-                        Hidden directory brute-forcer for web application reconnaissance.
-                    </div>
-                    <div class="project-tech">Python · requests · threading</div>
+                <div class="achievement-card">
+                    <div class="achievement-title">🔐 Криптография</div>
+                    <div class="project-desc">MD5, SHA1, SHA256, словарные атаки, соль (salt) — на практике.</div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-title">
-                        <a href="https://github.com/dubkow14-cell/url-scanner">url_scanner</a>
-                    </div>
-                    <div class="project-desc">
-                        Phishing link detector with HTTPS validation and suspicious pattern matching.
-                    </div>
-                    <div class="project-tech">Python · security headers · threat intel</div>
+                <div class="achievement-card">
+                    <div class="achievement-title">🕸️ Веб-безопасность</div>
+                    <div class="project-desc">OWASP Top 10, SQLi, XSS, поиск скрытых директорий.</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-title">📡 Инструменты</div>
+                    <div class="project-desc">Wireshark, tcpdump, Nmap, Git, Burp Suite (база).</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-title">🎯 Low-level</div>
+                    <div class="project-desc">C/C++ в плане, понимание памяти, указателей, уязвимостей.</div>
                 </div>
             </div>
         </div>
 
+        <!-- Мои проекты (уже существующие) -->
         <div class="section">
-            <div class="section-title">⚙️ toolbox</div>
+            <div class="section-title">📡 проекты</div>
+            
+            <div class="project-card">
+                <div class="project-title">
+                    <a href="https://github.com/dubkow14-cell/port_scanner">port_scanner</a>
+                </div>
+                <div class="project-desc">
+                    Многопоточный TCP-сканер портов с определением сервисов (SSH, HTTP, SMB).<br>
+                    Сканирует 1024 порта за <strong>0.16 секунды</strong>.
+                </div>
+                <div class="project-tech">Python · sockets · threading · Wireshark</div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-title">
+                    <a href="https://github.com/dubkow14-cell/hash-cracker">hash_cracker</a>
+                </div>
+                <div class="project-desc">
+                    Словарная атака на хеши паролей. Автоопределение алгоритма MD5/SHA1/SHA256/SHA512.<br>
+                    <strong>Взламывает хеш за 0.01 секунды</strong>.
+                </div>
+                <div class="project-tech">Python · hashlib · криптография · многопоточность</div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-title">
+                    <a href="https://github.com/dubkow14-cell/web-scanner">web_scanner</a>
+                </div>
+                <div class="project-desc">
+                    Поиск скрытых директорий на веб-сайтах. Обнаруживает админки, бэкапы, скрытые файлы.<br>
+                    80+ путей, обработка 200/403/301/302.
+                </div>
+                <div class="project-tech">Python · requests · threading · HTTP</div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-title">
+                    <a href="https://github.com/dubkow14-cell/url-scanner">url_scanner</a>
+                </div>
+                <div class="project-desc">
+                    Проверка ссылок на фишинг и вредоносность. HTTPS, подозрительные домены, редиректы.
+                </div>
+                <div class="project-tech">Python · security headers · threat intel</div>
+            </div>
+        </div>
+
+        <!-- Что дальше — серьёзные планы -->
+        <div class="section">
+            <div class="section-title">🎯 следующие цели</div>
+            <div class="project-desc">
+                • Низкоуровневый бинарный эксплойт на C / assembler<br>
+                • Исследование уязвимостей ядра Linux (DOP, DirtyFree)<br>
+                • Свой фаззинг-фреймворк<br>
+                • Портирование игры на PS Vita (C++ / SDL2)<br>
+                • Сертификация eJPT / PNPT
+            </div>
+        </div>
+
+        <!-- Инструментарий -->
+        <div class="section">
+            <div class="section-title">⚙️ инструментарий</div>
             <div>
                 <span class="badge">Python</span>
-                <span class="badge">Linux (WSL)</span>
-                <span class="badge">Git</span>
-                <span class="badge">Wireshark</span>
-                <span class="badge">TCP/IP</span>
-                <span class="badge">HTTP</span>
-                <span class="badge">Crypto</span>
+                <span class="badge">C (в плане)</span>
+                <span class="badge">Linux / WSL</span>
+                <span class="badge">Git / GitHub</span>
+                <span class="badge">Wireshark / tcpdump</span>
+                <span class="badge">Nmap</span>
+                <span class="badge">Burp Suite</span>
+                <span class="badge">TCP/IP · HTTP</span>
+                <span class="badge">MD5 · SHA · salt</span>
             </div>
         </div>
 
-        <div class="section">
-            <div class="section-title">🎯 next targets</div>
-            <div class="project-desc">
-                • Low‑level binary exploitation (C / assembly)<br>
-                • Linux kernel security research<br>
-                • Custom fuzzing framework
-            </div>
-        </div>
-
+        <!-- Контакты -->
         <div class="footer">
             <a href="https://github.com/dubkow14-cell">github</a> &nbsp;|&nbsp;
             <a href="mailto:dubkow14@gmail.com">email</a>
