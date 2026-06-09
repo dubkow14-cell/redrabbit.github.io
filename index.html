@@ -27,62 +27,36 @@
             background: #f0f0f0;
             color: #0a0c10;
         }
+        body.light .matrix-bg { opacity: 0.05; }
+        body.light .badge { background: rgba(0,0,0,0.05); color: #0a0c10; }
+        body.light .project-card, body.light .achievement-card, body.light .stats { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.2); }
+        body.light a { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.3); color: #0a0c10; }
+        body.light a:hover { background: #0a0c10; color: #00ff9d; }
+        body.light .console-bar { background: #e0e0e0; border-top-color: #ccc; }
 
-        body.light .badge {
-            background: rgba(0, 0, 0, 0.05);
-            color: #0a0c10;
-        }
-
-        body.light .project-card,
-        body.light .achievement-card,
-        body.light .stats {
-            background: rgba(0, 0, 0, 0.03);
-            border-color: rgba(0, 0, 0, 0.2);
-        }
-
-        body.light a {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.3);
-            color: #0a0c10;
-        }
-
-        body.light a:hover {
-            background: #0a0c10;
-            color: #00ff9d;
-        }
-
-        /* Анимированный фон */
-        body::before {
-            content: ">";
+        /* Матрица на фоне */
+        .matrix-bg {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 120px;
-            opacity: 0.03;
-            pointer-events: none;
-            animation: float 8s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
+            opacity: 0.08;
+            pointer-events: none;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(5deg); }
         }
-
         @keyframes pulse {
             0%, 100% { text-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d; }
             50% { text-shadow: 0 0 20px #00ff9d, 0 0 30px #00ff9d; }
         }
-
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .container {
@@ -92,7 +66,6 @@
             z-index: 1;
         }
 
-        /* Шапка с логотипом и переключателем темы */
         .header {
             display: flex;
             justify-content: space-between;
@@ -100,26 +73,16 @@
             flex-wrap: wrap;
             margin-bottom: 1rem;
         }
-
         .logo-area {
             display: flex;
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
         }
-
-        .avatar {
-            font-size: 3rem;
-            filter: drop-shadow(0 0 5px #00ff9d);
-            transition: transform 0.3s;
-        }
-
-        .avatar:hover {
-            transform: scale(1.05);
-        }
-
+        .avatar { font-size: 3rem; filter: drop-shadow(0 0 5px #00ff9d); transition: transform 0.3s; cursor: default; }
+        .avatar:hover { transform: scale(1.05); }
         .theme-toggle {
-            background: rgba(0, 255, 157, 0.1);
+            background: rgba(0,255,157,0.1);
             border: 1px solid #00ff9d;
             color: #00ff9d;
             padding: 8px 16px;
@@ -127,34 +90,25 @@
             cursor: pointer;
             font-family: monospace;
             font-size: 0.8rem;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
-
-        .theme-toggle:hover {
-            background: #00ff9d;
-            color: #0a0c10;
-        }
-
-        /* Имя REDRABBIT */
+        .theme-toggle:hover { background: #00ff9d; color: #0a0c10; }
         .glitch {
             font-size: 2.5rem;
             font-weight: bold;
             text-transform: uppercase;
-            position: relative;
             text-shadow: 0.05em 0 0 rgba(255,0,0,0.5), -0.05em -0.025em 0 rgba(0,255,0,0.3);
             animation: pulse 2s infinite, glitch 3s infinite;
             letter-spacing: 5px;
             margin: 0;
         }
-
         @keyframes glitch {
-            0%, 100% { transform: skew(0deg, 0deg); }
-            95% { transform: skew(0deg, 0deg); }
-            96% { transform: skew(5deg, 2deg); text-shadow: 0.1em 0 0 red; }
-            97% { transform: skew(-3deg, -1deg); text-shadow: -0.05em 0.025em 0 lime; }
-            98% { transform: skew(0deg, 0deg); }
+            0%,100% { transform: skew(0deg,0deg); }
+            95% { transform: skew(0deg,0deg); }
+            96% { transform: skew(5deg,2deg); text-shadow: 0.1em 0 0 red; }
+            97% { transform: skew(-3deg,-1deg); text-shadow: -0.05em 0.025em 0 lime; }
+            98% { transform: skew(0deg,0deg); }
         }
-
         .cursor {
             display: inline-block;
             width: 8px;
@@ -164,34 +118,16 @@
             margin-left: 5px;
             animation: blink 1s step-end infinite;
         }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .tagline {
-            color: #4a4e5c;
-            margin-bottom: 2rem;
-            border-left: 3px solid #00ff9d;
-            padding-left: 1rem;
-            min-height: 3rem;
-            font-family: monospace;
-        }
-
-        /* Секции */
-        .section {
-            margin: 2.5rem 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-            opacity: 0;
-        }
-
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+        .tagline { color: #4a4e5c; margin-bottom: 2rem; border-left: 3px solid #00ff9d; padding-left: 1rem; min-height: 3rem; }
+        .section { margin: 2.5rem 0; animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+        .section:nth-child(1) { animation-delay: 0.05s; }
         .section:nth-child(2) { animation-delay: 0.1s; }
-        .section:nth-child(3) { animation-delay: 0.2s; }
-        .section:nth-child(4) { animation-delay: 0.3s; }
-        .section:nth-child(5) { animation-delay: 0.4s; }
-        .section:nth-child(6) { animation-delay: 0.5s; }
-
+        .section:nth-child(3) { animation-delay: 0.15s; }
+        .section:nth-child(4) { animation-delay: 0.2s; }
+        .section:nth-child(5) { animation-delay: 0.25s; }
+        .section:nth-child(6) { animation-delay: 0.3s; }
+        .section:nth-child(7) { animation-delay: 0.35s; }
         .section-title {
             font-size: 1.3rem;
             font-weight: bold;
@@ -199,171 +135,72 @@
             color: #00ff9d;
             text-transform: uppercase;
             letter-spacing: 3px;
-            border-bottom: 2px solid rgba(0, 255, 157, 0.3);
+            border-bottom: 2px solid rgba(0,255,157,0.3);
             padding-bottom: 0.5rem;
             display: inline-block;
         }
-
-        /* Статистика */
         .stats {
             display: flex;
             flex-wrap: wrap;
             gap: 1.5rem;
             justify-content: space-between;
             margin: 1.5rem 0;
-            background: rgba(0, 255, 157, 0.03);
+            background: rgba(0,255,157,0.03);
             padding: 1.5rem;
             border-radius: 8px;
-            border: 1px solid rgba(0, 255, 157, 0.15);
+            border: 1px solid rgba(0,255,157,0.15);
         }
-
-        .stat-item {
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
-            transition: transform 0.3s;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #00ff9d;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: #4a4e5c;
-            text-transform: uppercase;
-            margin-top: 0.5rem;
-        }
-
-        /* Сетка компетенций */
-        .achievement-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .achievement-card {
-            background: rgba(0, 255, 157, 0.05);
-            border: 1px solid rgba(0, 255, 157, 0.2);
+        .stat-item { text-align: center; flex: 1; min-width: 100px; transition: transform 0.3s; }
+        .stat-item:hover { transform: translateY(-5px); }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #00ff9d; }
+        .stat-label { font-size: 0.7rem; color: #4a4e5c; text-transform: uppercase; margin-top: 0.5rem; }
+        .achievement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1rem; margin-top: 1rem; }
+        .achievement-card, .project-card {
+            background: rgba(0,255,157,0.05);
+            border: 1px solid rgba(0,255,157,0.2);
             padding: 1.2rem;
             border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .achievement-card:hover {
-            transform: translateY(-3px);
-            border-color: #00ff9d;
-            background: rgba(0, 255, 157, 0.08);
-        }
-
-        .achievement-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #00ff9d;
-        }
-
-        /* Карточки проектов */
-        .project-card {
-            background: rgba(0, 255, 157, 0.05);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            padding: 1.2rem;
-            border-radius: 8px;
-            transition: all 0.3s;
+            transition: 0.3s;
             margin-bottom: 1rem;
         }
-
-        .project-card:hover {
-            transform: translateX(8px);
-            border-color: #00ff9d;
-        }
-
-        .project-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Яркие ссылки */
+        .achievement-card:hover, .project-card:hover { transform: translateY(-3px); border-color: #00ff9d; background: rgba(0,255,157,0.08); }
+        .project-card:hover { transform: translateX(8px); }
+        .achievement-title, .project-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.5rem; color: #00ff9d; }
         a {
             color: #00ff9d;
             text-decoration: none;
             font-weight: bold;
             padding: 4px 8px;
             border-radius: 6px;
-            transition: all 0.2s;
-            background: rgba(0, 255, 157, 0.1);
-            border: 1px solid rgba(0, 255, 157, 0.4);
+            transition: 0.2s;
+            background: rgba(0,255,157,0.1);
+            border: 1px solid rgba(0,255,157,0.4);
             display: inline-block;
         }
-
-        a:hover {
-            background: #00ff9d;
-            color: #0a0c10;
-            box-shadow: 0 0 12px #00ff9d;
-            transform: scale(1.02);
-        }
-
-        .project-desc {
-            color: #8a8e9c;
-            font-size: 0.85rem;
-            margin: 0.5rem 0 0.8rem 0;
-        }
-
-        .project-tech {
-            font-size: 0.7rem;
-            color: #00ff9d;
-            text-transform: uppercase;
-        }
-
-        /* Бейджи */
+        a:hover { background: #00ff9d; color: #0a0c10; box-shadow: 0 0 12px #00ff9d; transform: scale(1.02); }
+        .project-desc { color: #8a8e9c; font-size: 0.85rem; margin: 0.5rem 0 0.8rem; }
+        .project-tech { font-size: 0.7rem; color: #00ff9d; text-transform: uppercase; }
         .badge {
             display: inline-block;
-            background: rgba(0, 255, 157, 0.1);
+            background: rgba(0,255,157,0.1);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.7rem;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
-
-        .badge:hover {
-            background: rgba(0, 255, 157, 0.2);
-            transform: scale(1.05);
-        }
-
-        /* Футер */
+        .badge:hover { background: rgba(0,255,157,0.2); transform: scale(1.05); }
         .footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(0, 255, 157, 0.2);
+            border-top: 1px solid rgba(0,255,157,0.2);
             text-align: center;
             color: #4a4e5c;
             font-size: 0.8rem;
         }
-
-        .footer a {
-            background: none;
-            border: none;
-            padding: 0;
-            margin: 0 10px;
-        }
-
-        .footer a:hover {
-            background: none;
-            box-shadow: none;
-            text-decoration: underline;
-            transform: none;
-        }
-
+        .footer a { background: none; border: none; padding: 0; margin: 0 10px; }
+        .footer a:hover { background: none; box-shadow: none; text-decoration: underline; transform: none; }
         .console-bar {
             background: #0d0e12;
             border-top: 1px solid #1a1d24;
@@ -378,15 +215,8 @@
             z-index: 100;
             text-align: center;
         }
-
-        body.light .console-bar {
-            background: #e0e0e0;
-            border-top-color: #ccc;
-        }
-
-        /* Кнопка скопировать */
         .copy-btn {
-            background: rgba(0, 255, 157, 0.1);
+            background: rgba(0,255,157,0.1);
             border: 1px solid #00ff9d;
             color: #00ff9d;
             padding: 2px 8px;
@@ -395,7 +225,25 @@
             font-size: 0.7rem;
             margin-left: 8px;
         }
-
+        .btn-resume {
+            display: inline-block;
+            background: #00ff9d;
+            color: #0a0c10;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            font-family: monospace;
+            transition: 0.3s;
+        }
+        .btn-resume:hover {
+            background: #0a0c10;
+            color: #00ff9d;
+            border: 1px solid #00ff9d;
+            transform: scale(1.02);
+        }
         @media (max-width: 600px) {
             .glitch { font-size: 1.8rem; letter-spacing: 2px; }
             .stats { flex-direction: column; gap: 1rem; }
@@ -407,44 +255,33 @@
 </head>
 <body>
 
+<canvas class="matrix-bg" id="matrixCanvas"></canvas>
+
 <div class="container">
-    <!-- Шапка с аватаром и переключателем темы -->
     <div class="header">
         <div class="logo-area">
             <div class="avatar">🐇</div>
-            <h1 class="glitch">
-                REDRABBIT
-                <span class="cursor"></span>
-            </h1>
+            <h1 class="glitch">REDRABBIT<span class="cursor"></span></h1>
         </div>
         <button class="theme-toggle" id="themeToggle">🌙 темная</button>
     </div>
 
-    <!-- Печатная машинка для tagline -->
     <div class="tagline" id="tagline"></div>
 
-    <!-- Статистика -->
+    <!-- Статистика с счётчиком просмотров -->
     <div class="stats">
-        <div class="stat-item">
-            <div class="stat-number" id="repoCount">5+</div>
-            <div class="stat-label">проектов на GitHub</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">самописный код</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">&lt;1с</div>
-            <div class="stat-label">сканер 1024 портов</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">0.01с</div>
-            <div class="stat-label">взлом хеша</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number" id="lastCommit">—</div>
-            <div class="stat-label">последний коммит</div>
-        </div>
+        <div class="stat-item"><div class="stat-number" id="repoCount">5+</div><div class="stat-label">проектов на GitHub</div></div>
+        <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">самописный код</div></div>
+        <div class="stat-item"><div class="stat-number">&lt;1с</div><div class="stat-label">сканер 1024 портов</div></div>
+        <div class="stat-item"><div class="stat-number">0.01с</div><div class="stat-label">взлом хеша</div></div>
+        <div class="stat-item"><div class="stat-number" id="lastCommit">—</div><div class="stat-label">последний коммит</div></div>
+        <div class="stat-item"><div class="stat-number" id="viewCounter">—</div><div class="stat-label">просмотров страницы</div></div>
+    </div>
+
+    <!-- Совет дня -->
+    <div class="section">
+        <div class="section-title">💡 совет по безопасности</div>
+        <div class="project-desc" id="securityTip">Загрузка...</div>
     </div>
 
     <!-- Компетенции -->
@@ -463,30 +300,17 @@
     <!-- Проекты -->
     <div class="section">
         <div class="section-title">📡 проекты</div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/port_scanner" target="_blank">🔍 port_scanner →</a></div><div class="project-desc">Многопоточный TCP-сканер портов. 1024 порта за <strong>0.16 секунды</strong>.</div><div class="project-tech">Python · sockets · threading</div></div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/hash-cracker" target="_blank">🔓 hash_cracker →</a></div><div class="project-desc">Словарная атака на хеши. Автоопределение алгоритмов. <strong>Взлом за 0.01 секунды</strong>.</div><div class="project-tech">Python · hashlib · криптография</div></div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/web-scanner" target="_blank">🌐 web_scanner →</a></div><div class="project-desc">Поиск скрытых директорий. 80+ путей, обработка 200/403/301/302.</div><div class="project-tech">Python · requests · threading</div></div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/url-scanner" target="_blank">✅ url_scanner →</a></div><div class="project-desc">Проверка ссылок на фишинг и вредоносность.</div><div class="project-tech">Python · security headers</div></div>
+    </div>
 
-        <div class="project-card">
-            <div class="project-title"><a href="https://github.com/dubkow14-cell/port_scanner" target="_blank">🔍 port_scanner →</a></div>
-            <div class="project-desc">Многопоточный TCP-сканер портов. 1024 порта за <strong>0.16 секунды</strong>.</div>
-            <div class="project-tech">Python · sockets · threading</div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-title"><a href="https://github.com/dubkow14-cell/hash-cracker" target="_blank">🔓 hash_cracker →</a></div>
-            <div class="project-desc">Словарная атака на хеши. Автоопределение алгоритмов. <strong>Взлом за 0.01 секунды</strong>.</div>
-            <div class="project-tech">Python · hashlib · криптография</div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-title"><a href="https://github.com/dubkow14-cell/web-scanner" target="_blank">🌐 web_scanner →</a></div>
-            <div class="project-desc">Поиск скрытых директорий. 80+ путей, обработка 200/403/301/302.</div>
-            <div class="project-tech">Python · requests · threading</div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-title"><a href="https://github.com/dubkow14-cell/url-scanner" target="_blank">✅ url_scanner →</a></div>
-            <div class="project-desc">Проверка ссылок на фишинг и вредоносность.</div>
-            <div class="project-tech">Python · security headers</div>
-        </div>
+    <!-- Кнопка скачать резюме -->
+    <div class="section">
+        <div class="section-title">📄 резюме</div>
+        <button class="btn-resume" id="downloadResumeBtn">📥 Скачать резюме (PDF)</button>
+        <div class="project-desc" style="margin-top: 8px;">Нажми, чтобы скачать — добавь файл resume.pdf в папку с сайтом</div>
     </div>
 
     <!-- Следующие цели -->
@@ -504,19 +328,9 @@
     <!-- Инструменты -->
     <div class="section">
         <div class="section-title">⚙️ инструментарий</div>
-        <div>
-            <span class="badge">Python</span>
-            <span class="badge">C (в плане)</span>
-            <span class="badge">Linux / WSL</span>
-            <span class="badge">Git / GitHub</span>
-            <span class="badge">Wireshark</span>
-            <span class="badge">Nmap</span>
-            <span class="badge">Burp Suite</span>
-            <span class="badge">TCP/IP · HTTP</span>
-        </div>
+        <div><span class="badge">Python</span><span class="badge">C (в плане)</span><span class="badge">Linux / WSL</span><span class="badge">Git / GitHub</span><span class="badge">Wireshark</span><span class="badge">Nmap</span><span class="badge">Burp Suite</span><span class="badge">TCP/IP · HTTP</span></div>
     </div>
 
-    <!-- Футер с email и кнопкой копирования -->
     <div class="footer">
         <a href="https://github.com/dubkow14-cell">github</a> |
         <span id="emailContainer">
@@ -526,12 +340,10 @@
     </div>
 </div>
 
-<div class="console-bar" id="consoleBar">
-    ~/portfolio$ echo "REDRABBIT — security researcher"
-</div>
+<div class="console-bar" id="consoleBar">~/portfolio$ echo "REDRABBIT — security researcher"</div>
 
 <script>
-    // 1. Печатная машинка
+    // Печатная машинка
     const text = "// исследователь безопасности · сетевой анализ · low-level эксплойты";
     const tagline = document.getElementById('tagline');
     let i = 0;
@@ -545,61 +357,102 @@
     }
     typeWriter();
 
-    // 2. Подтягивание количества репозиториев и последнего коммита
+    // GitHub API
     fetch('https://api.github.com/users/dubkow14-cell/repos?per_page=100')
         .then(res => res.json())
         .then(data => {
             if (Array.isArray(data)) {
-                const repoCount = data.length;
-                document.getElementById('repoCount').innerText = repoCount;
-                
-                // Находим последний коммит по всем репозиториям
+                document.getElementById('repoCount').innerText = data.length;
                 let latest = 0;
-                data.forEach(repo => {
-                    if (repo.updated_at) {
-                        const date = new Date(repo.updated_at);
-                        if (date > latest) latest = date;
-                    }
-                });
+                data.forEach(repo => { if (repo.updated_at) { let d = new Date(repo.updated_at); if (d > latest) latest = d; } });
                 if (latest > 0) {
-                    const diffDays = Math.floor((new Date() - latest) / (1000 * 60 * 60 * 24));
-                    if (diffDays === 0) document.getElementById('lastCommit').innerText = 'сегодня';
-                    else if (diffDays === 1) document.getElementById('lastCommit').innerText = 'вчера';
-                    else document.getElementById('lastCommit').innerHTML = `${diffDays} дн. назад`;
+                    let diff = Math.floor((new Date() - latest) / (86400000));
+                    if (diff === 0) document.getElementById('lastCommit').innerText = 'сегодня';
+                    else if (diff === 1) document.getElementById('lastCommit').innerText = 'вчера';
+                    else document.getElementById('lastCommit').innerHTML = `${diff} дн. назад`;
                 }
             }
-        })
-        .catch(err => console.log('GitHub API не ответил'));
+        }).catch(() => {});
 
-    // 3. Тёмная / светлая тема
+    // Тёмная тема
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('light');
-        const isLight = document.body.classList.contains('light');
-        themeToggle.innerHTML = isLight ? '🌙 темная' : '☀️ светлая';
+        themeToggle.innerHTML = document.body.classList.contains('light') ? '🌙 темная' : '☀️ светлая';
     });
 
-    // 4. Случайная цитата о безопасности
-    const quotes = [
-        "Хакер не тот, кто взламывает, а тот, кто понимает систему глубже других.",
-        "Единственная безопасная система — выключенная, и даже тогда не факт.",
-        "Сложный пароль — как сложный замок: вскрыть можно, но лень.",
-        "Доверять своей памяти — плохая стратегия. Доверять проверке — хорошая.",
-        "Атака не бывает сложной, бывает недостаточно времени на поиск простого пути."
+    // Советы
+    const tips = [
+        "Никогда не используй один пароль везде.",
+        "Включи двухфакторную аутентификацию (2FA) везде, где можно.",
+        "Не скачивай файлы из недоверенных источников.",
+        "Проверяй ссылки перед переходом — фишинг бывает очень убедительным.",
+        "Используй менеджер паролей (Bitwarden, KeePass).",
+        "Обновляй программы и систему — большинство атак идут через старые уязвимости.",
+        "Не открывай вложения в письмах от незнакомцев.",
+        "Сделай резервную копию важных данных."
     ];
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    const consoleBar = document.getElementById('consoleBar');
-    consoleBar.innerHTML = `~/portfolio$ echo "${randomQuote}"`;
+    document.getElementById('securityTip').innerText = tips[Math.floor(Math.random() * tips.length)];
 
-    // 5. Копирование email
-    window.copyEmail = function() {
-        const email = "dubkow14@gmail.com";
-        navigator.clipboard.writeText(email);
-        const btn = document.querySelector('.copy-btn');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '✓';
-        setTimeout(() => { btn.innerHTML = originalText; }, 1500);
+    // Счётчик просмотров
+    async function updateViewCounter() {
+        try {
+            const res = await fetch('https://api.countapi.xyz/hit/dubkow14-cell.portfolio/visits');
+            const data = await res.json();
+            document.getElementById('viewCounter').innerHTML = data.value;
+        } catch(e) { document.getElementById('viewCounter').innerHTML = '?'; }
     }
+    updateViewCounter();
+
+    // Кнопка скачать резюме
+    document.getElementById('downloadResumeBtn').addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.href = 'resume.pdf';
+        link.download = 'REDRABBIT_resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
+    // Копирование email
+    window.copyEmail = function() {
+        navigator.clipboard.writeText("dubkow14@gmail.com");
+        let btn = document.querySelector('.copy-btn');
+        let old = btn.innerHTML;
+        btn.innerHTML = '✓';
+        setTimeout(() => btn.innerHTML = old, 1500);
+    };
+
+    // Матрица на фоне
+    const matrixCanvas = document.getElementById('matrixCanvas');
+    const ctx = matrixCanvas.getContext('2d');
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    const chars = "01アイウエオカキクケコ";
+    const fontSize = 14;
+    let columns = matrixCanvas.width / fontSize;
+    let drops = [];
+    for (let x = 0; x < columns; x++) drops[x] = Math.random() * matrixCanvas.height / fontSize;
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(10, 12, 16, 0.04)';
+        ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        ctx.fillStyle = '#00ff9d';
+        ctx.font = fontSize + 'px monospace';
+        for (let i = 0; i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 50);
+    window.addEventListener('resize', () => {
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        columns = matrixCanvas.width / fontSize;
+        drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = Math.random() * matrixCanvas.height / fontSize;
+    });
 </script>
 
 </body>
