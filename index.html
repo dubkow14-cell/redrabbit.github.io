@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>REDRABBIT | лаборатория безопасности</title>
     <style>
         * {
@@ -14,14 +14,14 @@
         body {
             background: #0a0c10;
             color: #00ff9d;
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier New', 'Fira Code', monospace;
             line-height: 1.6;
             padding: 40px 20px;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Анимированный фон из шевронов */
+        /* Анимированный фон */
         body::before {
             content: ">";
             position: fixed;
@@ -29,24 +29,8 @@
             right: 20px;
             font-size: 120px;
             opacity: 0.03;
-            font-family: monospace;
             pointer-events: none;
             animation: float 8s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        body::after {
-            content: "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            font-size: 14px;
-            opacity: 0.02;
-            pointer-events: none;
-            white-space: pre;
-            overflow: hidden;
             z-index: 0;
         }
 
@@ -60,11 +44,6 @@
             50% { text-shadow: 0 0 20px #00ff9d, 0 0 30px #00ff9d; }
         }
 
-        @keyframes scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -76,16 +55,6 @@
             }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes lineGrow {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -93,7 +62,7 @@
             z-index: 1;
         }
 
-        /* Анимированное имя */
+        /* Имя REDRABBIT — эффектный глитч */
         .glitch {
             font-size: 3.5rem;
             font-weight: bold;
@@ -112,7 +81,6 @@
             98% { transform: skew(0deg, 0deg); }
         }
 
-        /* Терминальный курсор */
         .cursor {
             display: inline-block;
             width: 12px;
@@ -136,6 +104,7 @@
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
+        /* Секции с анимацией появления */
         .section {
             margin: 2.5rem 0;
             animation: fadeInUp 0.6s ease-out forwards;
@@ -219,7 +188,7 @@
             margin-top: 0.5rem;
         }
 
-        /* Компетенции — 3D карточки */
+        /* Сетка компетенций */
         .achievement-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -233,7 +202,7 @@
             padding: 1.2rem;
             border-radius: 8px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            cursor: default;
         }
 
         .achievement-card:hover {
@@ -258,27 +227,10 @@
             border-radius: 8px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-bottom: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
         }
 
         .project-card:hover {
-            transform: translateX(10px);
+            transform: translateX(8px);
             border-color: #00ff9d;
             background: rgba(0, 255, 157, 0.08);
         }
@@ -289,10 +241,32 @@
             margin-bottom: 0.5rem;
         }
 
+        /* ЯРКИЕ ССЫЛКИ — как кнопки */
+        a {
+            color: #00ff9d;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.4);
+            display: inline-block;
+        }
+
+        a:hover {
+            background: #00ff9d;
+            color: #0a0c10;
+            text-decoration: none;
+            box-shadow: 0 0 12px #00ff9d;
+            cursor: pointer;
+            transform: scale(1.02);
+        }
+
         .project-desc {
             color: #8a8e9c;
             font-size: 0.85rem;
-            margin-bottom: 0.8rem;
+            margin: 0.5rem 0 0.8rem 0;
         }
 
         .project-tech {
@@ -301,17 +275,7 @@
             text-transform: uppercase;
         }
 
-        a {
-            color: #00ff9d;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        a:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 5px #00ff9d;
-        }
-
+        /* Бейджи */
         .badge {
             display: inline-block;
             background: rgba(0, 255, 157, 0.1);
@@ -337,7 +301,20 @@
             font-size: 0.8rem;
         }
 
-        /* Консольная строка */
+        .footer a {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            background: none;
+            box-shadow: none;
+            text-decoration: underline;
+        }
+
+        /* Консольная строка — просто стиль */
         .console-bar {
             background: #0d0e12;
             border-top: 1px solid #1a1d24;
@@ -350,164 +327,167 @@
             right: 0;
             color: #4a4e5c;
             z-index: 100;
+            text-align: center;
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .glitch { font-size: 2rem; letter-spacing: 2px; }
+            .glitch { font-size: 2.2rem; letter-spacing: 2px; }
             .stats { flex-direction: column; gap: 1rem; }
             .stat-item { text-align: left; }
             .container { padding: 0 10px; }
+            a { padding: 2px 6px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Имя с эффектами -->
-        <h1 class="glitch">
-            REDRABBIT
-            <span class="cursor"></span>
-        </h1>
-        <div class="tagline">
-            // исследователь безопасности · сетевой анализ · low-level эксплойты
+
+<div class="container">
+    <!-- Имя с эффектами -->
+    <h1 class="glitch">
+        REDRABBIT
+        <span class="cursor"></span>
+    </h1>
+    <div class="tagline">
+        // исследователь безопасности · сетевой анализ · low-level эксплойты
+    </div>
+
+    <!-- Блок статистики -->
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">реальных проектов</div>
         </div>
-
-        <!-- Статистика -->
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">5+</div>
-                <div class="stat-label">реальных проектов</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">самописный код</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">&lt;1с</div>
-                <div class="stat-label">сканер 1024 портов</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">0.01с</div>
-                <div class="stat-label">взлом хеша</div>
-            </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">самописный код</div>
         </div>
-
-        <!-- Компетенции -->
-        <div class="section">
-            <div class="section-title">🏆 компетенции</div>
-            <div class="achievement-grid">
-                <div class="achievement-card">
-                    <div class="achievement-title">🐍 Python-разработка</div>
-                    <div class="project-desc">Сокеты, threading, hashlib, requests — всё с нуля без копипасты.</div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-title">🌐 Сетевые технологии</div>
-                    <div class="project-desc">TCP handshake, SYN/ACK, анализ Wireshark — понимаю как работает интернет.</div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-title">🔐 Криптография</div>
-                    <div class="project-desc">MD5, SHA1, SHA256, словарные атаки, соль (salt) — на практике.</div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-title">🕸️ Веб-безопасность</div>
-                    <div class="project-desc">OWASP Top 10, SQLi, XSS, поиск скрытых директорий.</div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-title">📡 Инструменты</div>
-                    <div class="project-desc">Wireshark, tcpdump, Nmap, Git, Burp Suite (база).</div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-title">🎯 Low-level</div>
-                    <div class="project-desc">C/C++ в плане, понимание памяти, указателей, уязвимостей.</div>
-                </div>
-            </div>
+        <div class="stat-item">
+            <div class="stat-number">&lt;1с</div>
+            <div class="stat-label">сканер 1024 портов</div>
         </div>
+        <div class="stat-item">
+            <div class="stat-number">0.01с</div>
+            <div class="stat-label">взлом хеша</div>
+        </div>
+    </div>
 
-        <!-- Проекты -->
-        <div class="section">
-            <div class="section-title">📡 проекты</div>
-            
-            <div class="project-card">
-                <div class="project-title">
-                    <a href="https://github.com/dubkow14-cell/port_scanner">port_scanner</a>
-                </div>
-                <div class="project-desc">
-                    Многопоточный TCP-сканер портов с определением сервисов (SSH, HTTP, SMB).<br>
-                    Сканирует <strong>1024 порта за 0.16 секунды</strong> — быстрее Nmap!
-                </div>
-                <div class="project-tech">Python · sockets · threading · Wireshark</div>
+    <!-- Компетенции -->
+    <div class="section">
+        <div class="section-title">🏆 компетенции</div>
+        <div class="achievement-grid">
+            <div class="achievement-card">
+                <div class="achievement-title">🐍 Python-разработка</div>
+                <div class="project-desc">Сокеты, threading, hashlib, requests — всё с нуля.</div>
             </div>
-
-            <div class="project-card">
-                <div class="project-title">
-                    <a href="https://github.com/dubkow14-cell/hash-cracker">hash_cracker</a>
-                </div>
-                <div class="project-desc">
-                    Словарная атака на хеши паролей. Автоопределение MD5/SHA1/SHA256/SHA512.<br>
-                    <strong>Взламывает хеш за 0.01 секунды</strong>.
-                </div>
-                <div class="project-tech">Python · hashlib · криптография · многопоточность</div>
+            <div class="achievement-card">
+                <div class="achievement-title">🌐 Сетевые технологии</div>
+                <div class="project-desc">TCP handshake, SYN/ACK, анализ Wireshark.</div>
             </div>
-
-            <div class="project-card">
-                <div class="project-title">
-                    <a href="https://github.com/dubkow14-cell/web-scanner">web_scanner</a>
-                </div>
-                <div class="project-desc">
-                    Поиск скрытых директорий на веб-сайтах. Обнаруживает админки, бэкапы, скрытые файлы.<br>
-                    80+ путей, обработка 200/403/301/302.
-                </div>
-                <div class="project-tech">Python · requests · threading · HTTP</div>
+            <div class="achievement-card">
+                <div class="achievement-title">🔐 Криптография</div>
+                <div class="project-desc">MD5, SHA1, SHA256, словарные атаки, соль.</div>
             </div>
-
-            <div class="project-card">
-                <div class="project-title">
-                    <a href="https://github.com/dubkow14-cell/url-scanner">url_scanner</a>
-                </div>
-                <div class="project-desc">
-                    Проверка ссылок на фишинг и вредоносность. HTTPS, подозрительные домены, редиректы.
-                </div>
-                <div class="project-tech">Python · security headers · threat intel</div>
+            <div class="achievement-card">
+                <div class="achievement-title">🕸️ Веб-безопасность</div>
+                <div class="project-desc">OWASP Top 10, поиск скрытых директорий.</div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-title">📡 Инструменты</div>
+                <div class="project-desc">Wireshark, tcpdump, Nmap, Git, Burp Suite.</div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-title">🎯 Low-level</div>
+                <div class="project-desc">C/C++ в плане, понимание памяти, указателей.</div>
             </div>
         </div>
+    </div>
 
-        <!-- Следующие цели -->
-        <div class="section">
-            <div class="section-title">🎯 следующие цели</div>
+    <!-- Проекты — ссылки уже яркие и активные -->
+    <div class="section">
+        <div class="section-title">📡 проекты</div>
+
+        <div class="project-card">
+            <div class="project-title">
+                <a href="https://github.com/dubkow14-cell/port_scanner" target="_blank">🔍 port_scanner →</a>
+            </div>
             <div class="project-desc">
-                • Низкоуровневый бинарный эксплойт на C / assembler<br>
-                • Исследование уязвимостей ядра Linux (DOP, DirtyFree)<br>
-                • Свой фаззинг-фреймворк<br>
-                • Портирование игры на PS Vita (C++ / SDL2)<br>
-                • Сертификация eJPT / PNPT
+                Многопоточный TCP-сканер портов с определением сервисов.<br>
+                1024 порта за <strong>0.16 секунды</strong>.
             </div>
+            <div class="project-tech">Python · sockets · threading</div>
         </div>
 
-        <!-- Инструменты -->
-        <div class="section">
-            <div class="section-title">⚙️ инструментарий</div>
-            <div>
-                <span class="badge">Python</span>
-                <span class="badge">C (в плане)</span>
-                <span class="badge">Linux / WSL</span>
-                <span class="badge">Git / GitHub</span>
-                <span class="badge">Wireshark / tcpdump</span>
-                <span class="badge">Nmap</span>
-                <span class="badge">Burp Suite</span>
-                <span class="badge">TCP/IP · HTTP</span>
-                <span class="badge">MD5 · SHA · salt</span>
+        <div class="project-card">
+            <div class="project-title">
+                <a href="https://github.com/dubkow14-cell/hash-cracker" target="_blank">🔓 hash_cracker →</a>
             </div>
+            <div class="project-desc">
+                Словарная атака на хеши. Автоопределение MD5/SHA1/SHA256/SHA512.<br>
+                <strong>Взлом за 0.01 секунды</strong>.
+            </div>
+            <div class="project-tech">Python · hashlib · криптография</div>
         </div>
 
-        <div class="footer">
-            <a href="https://github.com/dubkow14-cell">github</a> &nbsp;|&nbsp;
-            <a href="mailto:dubkow14@gmail.com">email</a>
+        <div class="project-card">
+            <div class="project-title">
+                <a href="https://github.com/dubkow14-cell/web-scanner" target="_blank">🌐 web_scanner →</a>
+            </div>
+            <div class="project-desc">
+                Поиск скрытых директорий на веб-сайтах. Админки, бэкапы, скрытые файлы.<br>
+                80+ путей, обработка 200/403/301/302.
+            </div>
+            <div class="project-tech">Python · requests · threading</div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">
+                <a href="https://github.com/dubkow14-cell/url-scanner" target="_blank">✅ url_scanner →</a>
+            </div>
+            <div class="project-desc">
+                Проверка ссылок на фишинг и вредоносность. HTTPS, подозрительные домены, редиректы.
+            </div>
+            <div class="project-tech">Python · security headers</div>
         </div>
     </div>
 
-    <!-- Консольная строка внизу (как в хакерских фильмах) -->
-    <div class="console-bar">
-        ~/portfolio$ echo "REDRABBIT — security researcher" | pv -qL 30
+    <!-- Следующие цели -->
+    <div class="section">
+        <div class="section-title">🎯 следующие цели</div>
+        <div class="project-desc">
+            • Низкоуровневый бинарный эксплойт на C / assembler<br>
+            • Исследование уязвимостей ядра Linux (DOP, DirtyFree)<br>
+            • Свой фаззинг-фреймворк<br>
+            • Портирование игры на PS Vita (C++ / SDL2)<br>
+            • Сертификация eJPT / PNPT
+        </div>
     </div>
+
+    <!-- Инструменты -->
+    <div class="section">
+        <div class="section-title">⚙️ инструментарий</div>
+        <div>
+            <span class="badge">Python</span>
+            <span class="badge">C (в плане)</span>
+            <span class="badge">Linux / WSL</span>
+            <span class="badge">Git / GitHub</span>
+            <span class="badge">Wireshark</span>
+            <span class="badge">Nmap</span>
+            <span class="badge">Burp Suite</span>
+            <span class="badge">TCP/IP · HTTP</span>
+        </div>
+    </div>
+
+    <!-- Футер с ссылками -->
+    <div class="footer">
+        <a href="https://github.com/dubkow14-cell">github</a> |
+        <a href="mailto:dubkow14@gmail.com">email</a>
+    </div>
+</div>
+
+<!-- Нижняя строка — чисто для стиля -->
+<div class="console-bar">
+    ~/portfolio$ echo "REDRABBIT — security researcher"
+</div>
+
 </body>
 </html>
