@@ -15,26 +15,33 @@
             background: #0a0c10;
             color: #00ff9d;
             font-family: 'Courier New', 'Fira Code', monospace;
-            line-height: 1.6;
-            padding: 40px 20px;
+            line-height: 1.5;
+            padding: 40px 20px 60px 20px;
             position: relative;
             overflow-x: hidden;
             transition: background 0.3s, color 0.3s;
         }
 
-        /* Светлая тема */
         body.light {
             background: #f0f0f0;
             color: #0a0c10;
         }
         body.light .matrix-bg { opacity: 0.05; }
-        body.light .badge { background: rgba(0,0,0,0.05); color: #0a0c10; }
-        body.light .project-card, body.light .achievement-card, body.light .stats { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.2); }
-        body.light a { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.3); color: #0a0c10; }
+        body.light .badge,
+        body.light .project-card,
+        body.light .stats,
+        body.light .ascii-rabbit {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.2);
+        }
+        body.light a {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.3);
+            color: #0a0c10;
+        }
         body.light a:hover { background: #0a0c10; color: #00ff9d; }
-        body.light .console-bar { background: #e0e0e0; border-top-color: #ccc; }
+        body.light .console-bar { background: #e0e0e0; border-top-color: #ccc; color: #0a0c10; }
 
-        /* Матрица на фоне */
         .matrix-bg {
             position: fixed;
             top: 0;
@@ -47,8 +54,8 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
         @keyframes pulse {
             0%, 100% { text-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d; }
@@ -57,6 +64,17 @@
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glitch {
+            0%,100% { transform: skew(0deg,0deg); }
+            95% { transform: skew(0deg,0deg); }
+            96% { transform: skew(5deg,2deg); text-shadow: 0.1em 0 0 red; }
+            97% { transform: skew(-3deg,-1deg); text-shadow: -0.05em 0.025em 0 lime; }
+            98% { transform: skew(0deg,0deg); }
+        }
+        @keyframes blink {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .container {
@@ -79,7 +97,13 @@
             gap: 15px;
             flex-wrap: wrap;
         }
-        .avatar { font-size: 3rem; filter: drop-shadow(0 0 5px #00ff9d); transition: transform 0.3s; cursor: default; }
+        .avatar {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 5px #00ff9d);
+            transition: transform 0.3s;
+            cursor: default;
+            animation: float 3s ease-in-out infinite;
+        }
         .avatar:hover { transform: scale(1.05); }
         .theme-toggle {
             background: rgba(0,255,157,0.1);
@@ -92,7 +116,11 @@
             font-size: 0.8rem;
             transition: 0.3s;
         }
-        .theme-toggle:hover { background: #00ff9d; color: #0a0c10; }
+        .theme-toggle:hover {
+            background: #00ff9d;
+            color: #0a0c10;
+            transform: scale(1.02);
+        }
         .glitch {
             font-size: 2.5rem;
             font-weight: bold;
@@ -101,13 +129,6 @@
             animation: pulse 2s infinite, glitch 3s infinite;
             letter-spacing: 5px;
             margin: 0;
-        }
-        @keyframes glitch {
-            0%,100% { transform: skew(0deg,0deg); }
-            95% { transform: skew(0deg,0deg); }
-            96% { transform: skew(5deg,2deg); text-shadow: 0.1em 0 0 red; }
-            97% { transform: skew(-3deg,-1deg); text-shadow: -0.05em 0.025em 0 lime; }
-            98% { transform: skew(0deg,0deg); }
         }
         .cursor {
             display: inline-block;
@@ -118,10 +139,19 @@
             margin-left: 5px;
             animation: blink 1s step-end infinite;
         }
-        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-        .tagline { color: #4a4e5c; margin-bottom: 2rem; border-left: 3px solid #00ff9d; padding-left: 1rem; min-height: 3rem; }
-        .section { margin: 2.5rem 0; animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
-        .section:nth-child(1) { animation-delay: 0.05s; }
+        .tagline {
+            color: #4a4e5c;
+            margin-bottom: 2rem;
+            border-left: 3px solid #00ff9d;
+            padding-left: 1rem;
+            min-height: 3rem;
+            font-size: 0.9rem;
+        }
+        .section {
+            margin: 2rem 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
         .section:nth-child(2) { animation-delay: 0.1s; }
         .section:nth-child(3) { animation-delay: 0.15s; }
         .section:nth-child(4) { animation-delay: 0.2s; }
@@ -142,44 +172,63 @@
         .stats {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: space-between;
-            margin: 1.5rem 0;
             background: rgba(0,255,157,0.03);
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 1.2rem;
+            border-radius: 12px;
             border: 1px solid rgba(0,255,157,0.15);
+            margin: 1.5rem 0;
         }
-        .stat-item { text-align: center; flex: 1; min-width: 100px; transition: transform 0.3s; }
+        .stat-item { text-align: center; flex: 1; min-width: 80px; transition: transform 0.3s; }
         .stat-item:hover { transform: translateY(-5px); }
-        .stat-number { font-size: 2rem; font-weight: bold; color: #00ff9d; }
-        .stat-label { font-size: 0.7rem; color: #4a4e5c; text-transform: uppercase; margin-top: 0.5rem; }
-        .achievement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1rem; margin-top: 1rem; }
-        .achievement-card, .project-card {
+        .stat-number { font-size: 1.6rem; font-weight: bold; color: #00ff9d; }
+        .stat-label { font-size: 0.65rem; color: #4a4e5c; text-transform: uppercase; margin-top: 0.3rem; }
+        .ascii-rabbit {
+            background: rgba(0,255,157,0.03);
+            border: 1px solid #00ff9d;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            min-height: 100px;
+            transition: 0.3s;
+        }
+        .project-card {
             background: rgba(0,255,157,0.05);
             border: 1px solid rgba(0,255,157,0.2);
             padding: 1.2rem;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: 0.3s;
             margin-bottom: 1rem;
         }
-        .achievement-card:hover, .project-card:hover { transform: translateY(-3px); border-color: #00ff9d; background: rgba(0,255,157,0.08); }
-        .project-card:hover { transform: translateX(8px); }
-        .achievement-title, .project-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.5rem; color: #00ff9d; }
+        .project-card:hover {
+            transform: translateX(8px);
+            border-color: #00ff9d;
+            background: rgba(0,255,157,0.08);
+        }
+        .project-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; }
         a {
             color: #00ff9d;
             text-decoration: none;
             font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
             transition: 0.2s;
             background: rgba(0,255,157,0.1);
             border: 1px solid rgba(0,255,157,0.4);
             display: inline-block;
         }
-        a:hover { background: #00ff9d; color: #0a0c10; box-shadow: 0 0 12px #00ff9d; transform: scale(1.02); }
-        .project-desc { color: #8a8e9c; font-size: 0.85rem; margin: 0.5rem 0 0.8rem; }
-        .project-tech { font-size: 0.7rem; color: #00ff9d; text-transform: uppercase; }
+        a:hover {
+            background: #00ff9d;
+            color: #0a0c10;
+            box-shadow: 0 0 12px #00ff9d;
+            transform: scale(1.02);
+        }
+        .project-desc { color: #8a8e9c; font-size: 0.85rem; margin: 0.5rem 0 0.5rem; }
         .badge {
             display: inline-block;
             background: rgba(0,255,157,0.1);
@@ -188,19 +237,40 @@
             font-size: 0.7rem;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
-            transition: 0.3s;
+            transition: 0.2s;
         }
         .badge:hover { background: rgba(0,255,157,0.2); transform: scale(1.05); }
         .footer {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
             border-top: 1px solid rgba(0,255,157,0.2);
             text-align: center;
             color: #4a4e5c;
             font-size: 0.8rem;
         }
-        .footer a { background: none; border: none; padding: 0; margin: 0 10px; }
-        .footer a:hover { background: none; box-shadow: none; text-decoration: underline; transform: none; }
+        .footer a {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0 10px;
+        }
+        .footer a:hover {
+            background: none;
+            box-shadow: none;
+            text-decoration: underline;
+            transform: none;
+        }
+        .copy-btn {
+            background: rgba(0,255,157,0.1);
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+            padding: 2px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            margin-left: 8px;
+        }
+        .copy-btn:hover { background: #00ff9d; color: #0a0c10; }
         .console-bar {
             background: #0d0e12;
             border-top: 1px solid #1a1d24;
@@ -215,41 +285,19 @@
             z-index: 100;
             text-align: center;
         }
-        .copy-btn {
-            background: rgba(0,255,157,0.1);
-            border: 1px solid #00ff9d;
-            color: #00ff9d;
-            padding: 2px 8px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            margin-left: 8px;
-        }
-        .btn-resume {
-            display: inline-block;
-            background: #00ff9d;
-            color: #0a0c10;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            margin: 10px 0;
-            border: none;
-            cursor: pointer;
+        pre {
+            margin: 0;
             font-family: monospace;
-            transition: 0.3s;
-        }
-        .btn-resume:hover {
-            background: #0a0c10;
-            color: #00ff9d;
-            border: 1px solid #00ff9d;
-            transform: scale(1.02);
+            display: inline-block;
         }
         @media (max-width: 600px) {
-            .glitch { font-size: 1.8rem; letter-spacing: 2px; }
-            .stats { flex-direction: column; gap: 1rem; }
+            .glitch { font-size: 1.5rem; letter-spacing: 2px; }
+            .stats { flex-direction: column; gap: 0.5rem; }
             .stat-item { text-align: left; }
+            .avatar { font-size: 2rem; }
             .container { padding: 0 10px; }
             .header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .ascii-rabbit { font-size: 0.6rem; padding: 0.8rem; }
         }
     </style>
 </head>
@@ -268,49 +316,47 @@
 
     <div class="tagline" id="tagline"></div>
 
-    <!-- Статистика с счётчиком просмотров -->
+    <!-- Терминал с цитатами -->
+    <div class="ascii-rabbit">
+        <pre id="quoteFrame" style="margin:0; font-family:monospace; text-align: left; white-space: pre-wrap;">> загрузка...</pre>
+    </div>
+
     <div class="stats">
-        <div class="stat-item"><div class="stat-number" id="repoCount">5+</div><div class="stat-label">проектов на GitHub</div></div>
+        <div class="stat-item"><div class="stat-number" id="repoCount">5+</div><div class="stat-label">проектов</div></div>
         <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">самописный код</div></div>
-        <div class="stat-item"><div class="stat-number">&lt;1с</div><div class="stat-label">сканер 1024 портов</div></div>
+        <div class="stat-item"><div class="stat-number">&lt;1с</div><div class="stat-label">сканер портов</div></div>
         <div class="stat-item"><div class="stat-number">0.01с</div><div class="stat-label">взлом хеша</div></div>
-        <div class="stat-item"><div class="stat-number" id="lastCommit">—</div><div class="stat-label">последний коммит</div></div>
-        <div class="stat-item"><div class="stat-number" id="viewCounter">—</div><div class="stat-label">просмотров страницы</div></div>
-    </div>
-
-    <!-- Совет дня -->
-    <div class="section">
-        <div class="section-title">💡 совет по безопасности</div>
-        <div class="project-desc" id="securityTip">Загрузка...</div>
-    </div>
-
-    <!-- Компетенции -->
-    <div class="section">
-        <div class="section-title">🏆 компетенции</div>
-        <div class="achievement-grid">
-            <div class="achievement-card"><div class="achievement-title">🐍 Python-разработка</div><div class="project-desc">Сокеты, threading, hashlib, requests — всё с нуля.</div></div>
-            <div class="achievement-card"><div class="achievement-title">🌐 Сетевые технологии</div><div class="project-desc">TCP handshake, SYN/ACK, анализ Wireshark.</div></div>
-            <div class="achievement-card"><div class="achievement-title">🔐 Криптография</div><div class="project-desc">MD5, SHA1, SHA256, словарные атаки, соль.</div></div>
-            <div class="achievement-card"><div class="achievement-title">🕸️ Веб-безопасность</div><div class="project-desc">OWASP Top 10, поиск скрытых директорий.</div></div>
-            <div class="achievement-card"><div class="achievement-title">📡 Инструменты</div><div class="project-desc">Wireshark, tcpdump, Nmap, Git, Burp Suite.</div></div>
-            <div class="achievement-card"><div class="achievement-title">🎯 Low-level</div><div class="project-desc">C/C++ в плане, понимание памяти, указателей.</div></div>
-        </div>
+        <div class="stat-item"><div class="stat-number" id="lastCommit">—</div><div class="stat-label">посл. коммит</div></div>
+        <div class="stat-item"><div class="stat-number" id="accountAge">—</div><div class="stat-label">дней в теме</div></div>
     </div>
 
     <!-- Проекты -->
     <div class="section">
         <div class="section-title">📡 проекты</div>
-        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/port_scanner" target="_blank">🔍 port_scanner →</a></div><div class="project-desc">Многопоточный TCP-сканер портов. 1024 порта за <strong>0.16 секунды</strong>.</div><div class="project-tech">Python · sockets · threading</div></div>
-        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/hash-cracker" target="_blank">🔓 hash_cracker →</a></div><div class="project-desc">Словарная атака на хеши. Автоопределение алгоритмов. <strong>Взлом за 0.01 секунды</strong>.</div><div class="project-tech">Python · hashlib · криптография</div></div>
-        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/web-scanner" target="_blank">🌐 web_scanner →</a></div><div class="project-desc">Поиск скрытых директорий. 80+ путей, обработка 200/403/301/302.</div><div class="project-tech">Python · requests · threading</div></div>
-        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow14-cell/url-scanner" target="_blank">✅ url_scanner →</a></div><div class="project-desc">Проверка ссылок на фишинг и вредоносность.</div><div class="project-tech">Python · security headers</div></div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow1337/port_scanner" target="_blank">port_scanner →</a></div><div class="project-desc">Многопоточный TCP-сканер портов. 1024 порта за 0.16 секунды.</div><div class="badge">Python</div><div class="badge">sockets</div><div class="badge">threading</div></div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow1337/hash-cracker" target="_blank">hash_cracker →</a></div><div class="project-desc">Словарная атака на хеши. Автоопределение алгоритмов. Взлом за 0.01 секунды.</div><div class="badge">Python</div><div class="badge">hashlib</div><div class="badge">crypto</div></div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow1337/web-scanner" target="_blank">web_scanner →</a></div><div class="project-desc">Поиск скрытых директорий. 80+ путей, обработка 200/403/301/302.</div><div class="badge">Python</div><div class="badge">requests</div><div class="badge">threading</div></div>
+        <div class="project-card"><div class="project-title"><a href="https://github.com/dubkow1337/url-scanner" target="_blank">url_scanner →</a></div><div class="project-desc">Проверка ссылок на фишинг и вредоносность.</div><div class="badge">Python</div><div class="badge">security</div></div>
     </div>
 
-    <!-- Кнопка скачать резюме -->
+    <!-- Telegram Bot -->
     <div class="section">
-        <div class="section-title">📄 резюме</div>
-        <button class="btn-resume" id="downloadResumeBtn">📥 Скачать резюме (PDF)</button>
-        <div class="project-desc" style="margin-top: 8px;">Нажми, чтобы скачать — добавь файл resume.pdf в папку с сайтом</div>
+        <div class="section-title">🤖 telegram bot</div>
+        <div class="project-card">
+            <div class="project-title">
+                <a href="https://t.me/redrabbit_monitor_bot" target="_blank">@redrabbit_monitor_bot</a>
+            </div>
+            <div class="project-desc">
+                🛡️ Мониторинг новых уязвимостей (CVE).<br>
+                Присылает уведомления о критических уязвимостях каждый час.<br>
+                Работает 24/7 на GitHub Actions.
+            </div>
+            <div class="badge">Python</div>
+            <div class="badge">Telegram API</div>
+            <div class="badge">GitHub Actions</div>
+            <div class="badge">CVE</div>
+            <div class="badge">Security</div>
+        </div>
     </div>
 
     <!-- Следующие цели -->
@@ -328,11 +374,21 @@
     <!-- Инструменты -->
     <div class="section">
         <div class="section-title">⚙️ инструментарий</div>
-        <div><span class="badge">Python</span><span class="badge">C (в плане)</span><span class="badge">Linux / WSL</span><span class="badge">Git / GitHub</span><span class="badge">Wireshark</span><span class="badge">Nmap</span><span class="badge">Burp Suite</span><span class="badge">TCP/IP · HTTP</span></div>
+        <div>
+            <span class="badge">Python</span>
+            <span class="badge">Linux / WSL</span>
+            <span class="badge">Git</span>
+            <span class="badge">Wireshark</span>
+            <span class="badge">Nmap</span>
+            <span class="badge">Burp Suite</span>
+            <span class="badge">TCP/IP</span>
+            <span class="badge">HTTP</span>
+            <span class="badge">MD5/SHA</span>
+        </div>
     </div>
 
     <div class="footer">
-        <a href="https://github.com/dubkow14-cell">github</a> |
+        <a href="https://github.com/dubkow1337">github</a> |
         <span id="emailContainer">
             <a href="mailto:dubkow14@gmail.com">dubkow14@gmail.com</a>
             <button class="copy-btn" onclick="copyEmail()">📋</button>
@@ -343,7 +399,7 @@
 <div class="console-bar" id="consoleBar">~/portfolio$ echo "REDRABBIT — security researcher"</div>
 
 <script>
-    // Печатная машинка
+    // Печатная машинка для tagline
     const text = "// исследователь безопасности · сетевой анализ · low-level эксплойты";
     const tagline = document.getElementById('tagline');
     let i = 0;
@@ -357,8 +413,45 @@
     }
     typeWriter();
 
+    // Цитаты великих
+    const quotes = [
+        { text: "Хакер — это тот, кто видит возможность там, где другие видят стену.", author: "unknown" },
+        { text: "Единственная по-настоящему безопасная система — выключенная.", author: "Брюс Шнайер" },
+        { text: "Сложность — враг безопасности.", author: "Брюс Шнайер" },
+        { text: "В интернете никто не знает, что ты — кролик.", author: "REDRABBIT" },
+        { text: "Лучший способ взломать систему — найти человека, который ею управляет.", author: "Кевин Митник" },
+        { text: "Безопасность — это не продукт, а процесс.", author: "Брюс Шнайер" }
+    ];
+
+    let quoteIndex = 0;
+    let charIndex = 0;
+    let currentQuoteText = "";
+    const quoteFrame = document.getElementById('quoteFrame');
+
+    function typeNextQuote() {
+        const q = quotes[quoteIndex % quotes.length];
+        currentQuoteText = `> ${q.text}\n>   — ${q.author}`;
+        charIndex = 0;
+        quoteFrame.innerText = "";
+        typeCharacter();
+    }
+
+    function typeCharacter() {
+        if (charIndex < currentQuoteText.length) {
+            quoteFrame.innerText += currentQuoteText[charIndex];
+            charIndex++;
+            setTimeout(typeCharacter, 30);
+        } else {
+            setTimeout(() => {
+                quoteIndex++;
+                typeNextQuote();
+            }, 10000);
+        }
+    }
+    typeNextQuote();
+
     // GitHub API
-    fetch('https://api.github.com/users/dubkow14-cell/repos?per_page=100')
+    fetch('https://api.github.com/users/dubkow1337/repos?per_page=100')
         .then(res => res.json())
         .then(data => {
             if (Array.isArray(data)) {
@@ -369,50 +462,19 @@
                     let diff = Math.floor((new Date() - latest) / (86400000));
                     if (diff === 0) document.getElementById('lastCommit').innerText = 'сегодня';
                     else if (diff === 1) document.getElementById('lastCommit').innerText = 'вчера';
-                    else document.getElementById('lastCommit').innerHTML = `${diff} дн. назад`;
+                    else document.getElementById('lastCommit').innerHTML = `${diff}д`;
                 }
             }
         }).catch(() => {});
 
-    // Тёмная тема
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light');
-        themeToggle.innerHTML = document.body.classList.contains('light') ? '🌙 темная' : '☀️ светлая';
-    });
-
-    // Советы
-    const tips = [
-        "Никогда не используй один пароль везде.",
-        "Включи двухфакторную аутентификацию (2FA) везде, где можно.",
-        "Не скачивай файлы из недоверенных источников.",
-        "Проверяй ссылки перед переходом — фишинг бывает очень убедительным.",
-        "Используй менеджер паролей (Bitwarden, KeePass).",
-        "Обновляй программы и систему — большинство атак идут через старые уязвимости.",
-        "Не открывай вложения в письмах от незнакомцев.",
-        "Сделай резервную копию важных данных."
-    ];
-    document.getElementById('securityTip').innerText = tips[Math.floor(Math.random() * tips.length)];
-
-    // Счётчик просмотров
-    async function updateViewCounter() {
-        try {
-            const res = await fetch('https://api.countapi.xyz/hit/dubkow14-cell.portfolio/visits');
-            const data = await res.json();
-            document.getElementById('viewCounter').innerHTML = data.value;
-        } catch(e) { document.getElementById('viewCounter').innerHTML = '?'; }
+    // Счётчик дней
+    function calculateAccountAge() {
+        const startDate = new Date(2025, 4, 1);
+        const today = new Date();
+        const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        document.getElementById('accountAge').innerHTML = diffDays > 0 ? diffDays : 42;
     }
-    updateViewCounter();
-
-    // Кнопка скачать резюме
-    document.getElementById('downloadResumeBtn').addEventListener('click', () => {
-        const link = document.createElement('a');
-        link.href = 'resume.pdf';
-        link.download = 'REDRABBIT_resume.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
+    calculateAccountAge();
 
     // Копирование email
     window.copyEmail = function() {
@@ -422,6 +484,19 @@
         btn.innerHTML = '✓';
         setTimeout(() => btn.innerHTML = old, 1500);
     };
+
+    // Тёмная тема
+    const themeToggle = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light');
+        themeToggle.innerHTML = '🌙 темная';
+    }
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        const isLight = document.body.classList.contains('light');
+        themeToggle.innerHTML = isLight ? '🌙 темная' : '☀️ светлая';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
 
     // Матрица на фоне
     const matrixCanvas = document.getElementById('matrixCanvas');
@@ -434,7 +509,7 @@
     let drops = [];
     for (let x = 0; x < columns; x++) drops[x] = Math.random() * matrixCanvas.height / fontSize;
     function drawMatrix() {
-        ctx.fillStyle = 'rgba(10, 12, 16, 0.04)';
+        ctx.fillStyle = document.body.classList.contains('light') ? 'rgba(240, 240, 240, 0.04)' : 'rgba(10, 12, 16, 0.04)';
         ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
         ctx.fillStyle = '#00ff9d';
         ctx.font = fontSize + 'px monospace';
