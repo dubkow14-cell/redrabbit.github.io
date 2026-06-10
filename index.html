@@ -30,7 +30,7 @@
         body.light .badge,
         body.light .project-card,
         body.light .stats,
-        body.light .attack-card {
+        body.light .attack-carousel {
             background: rgba(0,0,0,0.05);
             border-color: rgba(0,0,0,0.2);
         }
@@ -158,6 +158,7 @@
         .section:nth-child(5) { animation-delay: 0.25s; }
         .section:nth-child(6) { animation-delay: 0.3s; }
         .section:nth-child(7) { animation-delay: 0.35s; }
+        .section:nth-child(8) { animation-delay: 0.4s; }
         .section-title {
             font-size: 1.3rem;
             font-weight: bold;
@@ -184,7 +185,7 @@
         .stat-item:hover { transform: translateY(-5px); }
         .stat-number { font-size: 1.6rem; font-weight: bold; color: #00ff9d; }
         .stat-label { font-size: 0.65rem; color: #4a4e5c; text-transform: uppercase; margin-top: 0.3rem; }
-        .project-card, .attack-card {
+        .project-card {
             background: rgba(0,255,157,0.05);
             border: 1px solid rgba(0,255,157,0.2);
             padding: 1.2rem;
@@ -192,12 +193,19 @@
             transition: 0.3s;
             margin-bottom: 1rem;
         }
-        .project-card:hover, .attack-card:hover {
+        .project-card:hover {
             transform: translateX(8px);
             border-color: #00ff9d;
             background: rgba(0,255,157,0.08);
         }
         .project-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .attack-carousel {
+            background: rgba(0,255,157,0.03);
+            border: 1px solid rgba(0,255,157,0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
         .attack-title {
             font-size: 1.2rem;
             font-weight: bold;
@@ -215,10 +223,35 @@
         .attack-impact {
             font-size: 0.75rem;
             color: #00ff9d;
+            margin-top: 0.5rem;
         }
         .attack-impact span {
             color: #ff5555;
             font-weight: bold;
+        }
+        .carousel-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .carousel-btn {
+            background: none;
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: monospace;
+            transition: 0.2s;
+        }
+        .carousel-btn:hover {
+            background: #00ff9d;
+            color: #0a0c10;
+        }
+        .carousel-counter {
+            color: #4a4e5c;
+            font-size: 0.8rem;
         }
         a {
             color: #00ff9d;
@@ -305,6 +338,7 @@
             .avatar { font-size: 2rem; }
             .container { padding: 0 10px; }
             .header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .carousel-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -361,50 +395,21 @@
         </div>
     </div>
 
-    <!-- Величайшие взломы в истории -->
+    <!-- Новостная лента великих взломов -->
     <div class="section">
-        <div class="section-title">⚡ великие взломы в истории</div>
-        <div class="attack-card">
-            <div class="attack-title">Morris Worm (1988)</div>
-            <div class="attack-type">Червь / DoS</div>
-            <div class="project-desc">Один из первых червей в интернете. Использовал уязвимости в UNIX-системах и поразил около 6000 компьютеров — 10% всего интернета на тот момент.</div>
-            <div class="attack-impact">📊 Ущерб: <span>~$10 млн</span></div>
-        </div>
-        <div class="attack-card">
-            <div class="attack-title">Mafiaboy (2000)</div>
-            <div class="attack-type">DDoS</div>
-            <div class="project-desc">15-летний Майкл Калс провёл DDoS-атаки на Yahoo!, Amazon, CNN и eBay. Серверы не выдерживали лавины запросов.</div>
-            <div class="attack-impact">📊 Ущерб: <span>$1.2 млрд</span></div>
-        </div>
-        <div class="attack-card">
-            <div class="attack-title">I LOVE YOU (2000)</div>
-            <div class="attack-type">Червь / Фишинг</div>
-            <div class="project-desc">Вирус, распространявшийся по почте с темой "ILOVEYOU". При открытии вложения пересылал себя на все контакты, перезаписывал файлы и воровал пароли. Поразил более 50 млн компьютеров.</div>
-            <div class="attack-impact">📊 Ущерб: <span>~$15 млрд</span></div>
-        </div>
-        <div class="attack-card">
-            <div class="attack-title">Stuxnet (2010)</div>
-            <div class="attack-type">Кибероружие / Индустриальный саботаж</div>
-            <div class="project-desc">Сложнейшая кибератака на ядерную программу Ирана. Червь выводил из строя промышленные контроллеры центрифуг, оставаясь незаметным. Первая кибератака, вызвавшая физические разрушения.</div>
-            <div class="attack-impact">📊 Ущерб: <span>~1000 центрифуг уничтожено</span></div>
-        </div>
-        <div class="attack-card">
-            <div class="attack-title">Yahoo! Data Breach (2013-2014)</div>
-            <div class="attack-type">Утечка данных</div>
-            <div class="project-desc">Крупнейшая утечка данных в истории. Хакеры украли данные 3 миллиардов учётных записей: имена, email, номера телефонов, хеши паролей.</div>
-            <div class="attack-impact">📊 Ущерб: <span>3 млрд учётных записей</span></div>
-        </div>
-        <div class="attack-card">
-            <div class="attack-title">Colonial Pipeline Ransomware (2021)</div>
-            <div class="attack-type">Ransomware / Критическая инфраструктура</div>
-            <div class="project-desc">Атака вымогательского ПО DarkSide остановила крупнейший топливопровод США. Colonial Pipeline заплатили выкуп $4.4 млн биткоинами.</div>
-            <div class="attack-impact">📊 Ущерб: <span>$4.4 млн (выкуп)</span></div>
-        </div>
-        <div class="attack-card">
-            <div class="attack-title">Lapsus$ (2021-2022)</div>
-            <div class="attack-type">Группировка / Социальная инженерия</div>
-            <div class="project-desc">Группа подростков взломала Microsoft, Samsung, Okta, NVIDIA. Использовали SIM-swapping, подкуп сотрудников, кражу исходного кода и требовали выкупы.</div>
-            <div class="attack-impact">📊 Исходные коды многих корпораций утекли</div>
+        <div class="section-title">⚡ лента взломов</div>
+        <div class="attack-carousel">
+            <div id="attackContent">
+                <div class="attack-title">Загрузка...</div>
+                <div class="attack-type"></div>
+                <div class="project-desc"></div>
+                <div class="attack-impact"></div>
+            </div>
+            <div class="carousel-buttons">
+                <button class="carousel-btn" id="prevAttack">← Предыдущая</button>
+                <span class="carousel-counter" id="attackCounter"></span>
+                <button class="carousel-btn" id="nextAttack">Следующая →</button>
+            </div>
         </div>
     </div>
 
@@ -540,6 +545,46 @@
         drops = [];
         for (let x = 0; x < columns; x++) drops[x] = Math.random() * matrixCanvas.height / fontSize;
     });
+
+    // ==================== НОВОСТНАЯ ЛЕНТА ВЗЛОМОВ ====================
+    const attacks = [
+        { title: "Morris Worm (1988)", type: "Червь / DoS", desc: "Один из первых червей в интернете. Поразил около 6000 компьютеров — 10% всего интернета на тот момент. Создатель стал первым осуждённым по Computer Fraud and Abuse Act.", impact: "~$10 млн ущерба" },
+        { title: "Mafiaboy (2000)", type: "DDoS", desc: "15-летний Майкл Калс провёл DDoS-атаки на Yahoo!, Amazon, CNN и eBay. Серверы не выдерживали лавины запросов, сайты падали на часы.", impact: "$1.2 млрд ущерба" },
+        { title: "I LOVE YOU (2000)", type: "Червь / Фишинг", desc: "Вирус с темой 'ILOVEYOU' поразил более 50 млн компьютеров. При открытии вложения пересылал себя на все контакты, перезаписывал файлы и воровал пароли.", impact: "~$15 млрд ущерба" },
+        { title: "Stuxnet (2010)", type: "Кибероружие / Индустриальный саботаж", desc: "Первая кибератака, вызвавшая физические разрушения. Червь выводил из строя центрифуги на ядерных объектах Ирана, подменяя показания датчиков.", impact: "~1000 центрифуг уничтожено" },
+        { title: "Yahoo! Data Breach (2013-2014)", type: "Утечка данных", desc: "Хакеры украли данные 3 миллиардов учётных записей — имена, email, номера телефонов, хеши паролей.", impact: "3 млрд учётных записей" },
+        { title: "Colonial Pipeline Ransomware (2021)", type: "Ransomware / Критическая инфраструктура", desc: "Атака вымогательского ПО DarkSide остановила крупнейший топливопровод США. Компания заплатила выкуп $4.4 млн биткоинами.", impact: "$4.4 млн (выкуп)" },
+        { title: "Lapsus$ (2021-2022)", type: "Группировка / Социальная инженерия", desc: "Подростки взломали Microsoft, Samsung, Okta, NVIDIA. Использовали SIM-swapping, подкуп сотрудников, кражу исходного кода.", impact: "Исходные коды корпораций утекли" }
+    ];
+
+    let attackIndex = 0;
+
+    function renderAttack(index) {
+        const a = attacks[index];
+        document.getElementById('attackContent').innerHTML = `
+            <div class="attack-title">${a.title}</div>
+            <div class="attack-type">${a.type}</div>
+            <div class="project-desc">${a.desc}</div>
+            <div class="attack-impact">📊 Ущерб: <span>${a.impact}</span></div>
+        `;
+        document.getElementById('attackCounter').innerText = `${index+1} / ${attacks.length}`;
+    }
+
+    document.getElementById('prevAttack').addEventListener('click', () => {
+        attackIndex = (attackIndex - 1 + attacks.length) % attacks.length;
+        renderAttack(attackIndex);
+    });
+    document.getElementById('nextAttack').addEventListener('click', () => {
+        attackIndex = (attackIndex + 1) % attacks.length;
+        renderAttack(attackIndex);
+    });
+    // автосмена каждые 15 секунд
+    setInterval(() => {
+        attackIndex = (attackIndex + 1) % attacks.length;
+        renderAttack(attackIndex);
+    }, 15000);
+
+    renderAttack(0);
 </script>
 
 </body>
