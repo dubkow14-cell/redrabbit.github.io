@@ -30,7 +30,7 @@
         body.light .badge,
         body.light .project-card,
         body.light .stats,
-        body.light .ascii-rabbit {
+        body.light .attack-card {
             background: rgba(0,0,0,0.05);
             border-color: rgba(0,0,0,0.2);
         }
@@ -184,20 +184,7 @@
         .stat-item:hover { transform: translateY(-5px); }
         .stat-number { font-size: 1.6rem; font-weight: bold; color: #00ff9d; }
         .stat-label { font-size: 0.65rem; color: #4a4e5c; text-transform: uppercase; margin-top: 0.3rem; }
-        .ascii-rabbit {
-            background: rgba(0,255,157,0.03);
-            border: 1px solid #00ff9d;
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            text-align: center;
-            font-family: monospace;
-            font-size: 0.85rem;
-            line-height: 1.3;
-            min-height: 100px;
-            transition: 0.3s;
-        }
-        .project-card {
+        .project-card, .attack-card {
             background: rgba(0,255,157,0.05);
             border: 1px solid rgba(0,255,157,0.2);
             padding: 1.2rem;
@@ -205,12 +192,34 @@
             transition: 0.3s;
             margin-bottom: 1rem;
         }
-        .project-card:hover {
+        .project-card:hover, .attack-card:hover {
             transform: translateX(8px);
             border-color: #00ff9d;
             background: rgba(0,255,157,0.08);
         }
         .project-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .attack-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff5555;
+            margin-bottom: 0.3rem;
+        }
+        .attack-type {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #ffaa00;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .attack-impact {
+            font-size: 0.75rem;
+            color: #00ff9d;
+        }
+        .attack-impact span {
+            color: #ff5555;
+            font-weight: bold;
+        }
         a {
             color: #00ff9d;
             text-decoration: none;
@@ -228,7 +237,11 @@
             box-shadow: 0 0 12px #00ff9d;
             transform: scale(1.02);
         }
-        .project-desc { color: #8a8e9c; font-size: 0.85rem; margin: 0.5rem 0 0.5rem; }
+        .project-desc {
+            color: #8a8e9c;
+            font-size: 0.85rem;
+            margin: 0.5rem 0 0.5rem;
+        }
         .badge {
             display: inline-block;
             background: rgba(0,255,157,0.1);
@@ -285,11 +298,6 @@
             z-index: 100;
             text-align: center;
         }
-        pre {
-            margin: 0;
-            font-family: monospace;
-            display: inline-block;
-        }
         @media (max-width: 600px) {
             .glitch { font-size: 1.5rem; letter-spacing: 2px; }
             .stats { flex-direction: column; gap: 0.5rem; }
@@ -297,7 +305,6 @@
             .avatar { font-size: 2rem; }
             .container { padding: 0 10px; }
             .header { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .ascii-rabbit { font-size: 0.6rem; padding: 0.8rem; }
         }
     </style>
 </head>
@@ -315,11 +322,6 @@
     </div>
 
     <div class="tagline" id="tagline"></div>
-
-    <!-- Терминал с цитатами -->
-    <div class="ascii-rabbit">
-        <pre id="quoteFrame" style="margin:0; font-family:monospace; text-align: left; white-space: pre-wrap;">> загрузка...</pre>
-    </div>
 
     <div class="stats">
         <div class="stat-item"><div class="stat-number" id="repoCount">5+</div><div class="stat-label">проектов</div></div>
@@ -356,6 +358,53 @@
             <div class="badge">GitHub Actions</div>
             <div class="badge">CVE</div>
             <div class="badge">Security</div>
+        </div>
+    </div>
+
+    <!-- Величайшие взломы в истории -->
+    <div class="section">
+        <div class="section-title">⚡ великие взломы в истории</div>
+        <div class="attack-card">
+            <div class="attack-title">Morris Worm (1988)</div>
+            <div class="attack-type">Червь / DoS</div>
+            <div class="project-desc">Один из первых червей в интернете. Использовал уязвимости в UNIX-системах и поразил около 6000 компьютеров — 10% всего интернета на тот момент.</div>
+            <div class="attack-impact">📊 Ущерб: <span>~$10 млн</span></div>
+        </div>
+        <div class="attack-card">
+            <div class="attack-title">Mafiaboy (2000)</div>
+            <div class="attack-type">DDoS</div>
+            <div class="project-desc">15-летний Майкл Калс провёл DDoS-атаки на Yahoo!, Amazon, CNN и eBay. Серверы не выдерживали лавины запросов.</div>
+            <div class="attack-impact">📊 Ущерб: <span>$1.2 млрд</span></div>
+        </div>
+        <div class="attack-card">
+            <div class="attack-title">I LOVE YOU (2000)</div>
+            <div class="attack-type">Червь / Фишинг</div>
+            <div class="project-desc">Вирус, распространявшийся по почте с темой "ILOVEYOU". При открытии вложения пересылал себя на все контакты, перезаписывал файлы и воровал пароли. Поразил более 50 млн компьютеров.</div>
+            <div class="attack-impact">📊 Ущерб: <span>~$15 млрд</span></div>
+        </div>
+        <div class="attack-card">
+            <div class="attack-title">Stuxnet (2010)</div>
+            <div class="attack-type">Кибероружие / Индустриальный саботаж</div>
+            <div class="project-desc">Сложнейшая кибератака на ядерную программу Ирана. Червь выводил из строя промышленные контроллеры центрифуг, оставаясь незаметным. Первая кибератака, вызвавшая физические разрушения.</div>
+            <div class="attack-impact">📊 Ущерб: <span>~1000 центрифуг уничтожено</span></div>
+        </div>
+        <div class="attack-card">
+            <div class="attack-title">Yahoo! Data Breach (2013-2014)</div>
+            <div class="attack-type">Утечка данных</div>
+            <div class="project-desc">Крупнейшая утечка данных в истории. Хакеры украли данные 3 миллиардов учётных записей: имена, email, номера телефонов, хеши паролей.</div>
+            <div class="attack-impact">📊 Ущерб: <span>3 млрд учётных записей</span></div>
+        </div>
+        <div class="attack-card">
+            <div class="attack-title">Colonial Pipeline Ransomware (2021)</div>
+            <div class="attack-type">Ransomware / Критическая инфраструктура</div>
+            <div class="project-desc">Атака вымогательского ПО DarkSide остановила крупнейший топливопровод США. Colonial Pipeline заплатили выкуп $4.4 млн биткоинами.</div>
+            <div class="attack-impact">📊 Ущерб: <span>$4.4 млн (выкуп)</span></div>
+        </div>
+        <div class="attack-card">
+            <div class="attack-title">Lapsus$ (2021-2022)</div>
+            <div class="attack-type">Группировка / Социальная инженерия</div>
+            <div class="project-desc">Группа подростков взломала Microsoft, Samsung, Okta, NVIDIA. Использовали SIM-swapping, подкуп сотрудников, кражу исходного кода и требовали выкупы.</div>
+            <div class="attack-impact">📊 Исходные коды многих корпораций утекли</div>
         </div>
     </div>
 
@@ -399,7 +448,7 @@
 <div class="console-bar" id="consoleBar">~/portfolio$ echo "REDRABBIT — security researcher"</div>
 
 <script>
-    // Печатная машинка для tagline
+    // Печатная машинка
     const text = "// исследователь безопасности · сетевой анализ · low-level эксплойты";
     const tagline = document.getElementById('tagline');
     let i = 0;
@@ -412,43 +461,6 @@
         }
     }
     typeWriter();
-
-    // Цитаты великих
-    const quotes = [
-        { text: "Хакер — это тот, кто видит возможность там, где другие видят стену.", author: "unknown" },
-        { text: "Единственная по-настоящему безопасная система — выключенная.", author: "Брюс Шнайер" },
-        { text: "Сложность — враг безопасности.", author: "Брюс Шнайер" },
-        { text: "В интернете никто не знает, что ты — кролик.", author: "REDRABBIT" },
-        { text: "Лучший способ взломать систему — найти человека, который ею управляет.", author: "Кевин Митник" },
-        { text: "Безопасность — это не продукт, а процесс.", author: "Брюс Шнайер" }
-    ];
-
-    let quoteIndex = 0;
-    let charIndex = 0;
-    let currentQuoteText = "";
-    const quoteFrame = document.getElementById('quoteFrame');
-
-    function typeNextQuote() {
-        const q = quotes[quoteIndex % quotes.length];
-        currentQuoteText = `> ${q.text}\n>   — ${q.author}`;
-        charIndex = 0;
-        quoteFrame.innerText = "";
-        typeCharacter();
-    }
-
-    function typeCharacter() {
-        if (charIndex < currentQuoteText.length) {
-            quoteFrame.innerText += currentQuoteText[charIndex];
-            charIndex++;
-            setTimeout(typeCharacter, 30);
-        } else {
-            setTimeout(() => {
-                quoteIndex++;
-                typeNextQuote();
-            }, 10000);
-        }
-    }
-    typeNextQuote();
 
     // GitHub API
     fetch('https://api.github.com/users/dubkow1337/repos?per_page=100')
